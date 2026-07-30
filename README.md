@@ -35,8 +35,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [https://github.com<твой-логин-на-гитхабе>/<имя-репозитория>](https://github.com<твой-логин-на-гитхабе>/<имя-репозитория>)
-- Live Site URL: [https://<твое-приложение>.vercel.app](https://<твое-приложение>.vercel.app)
+- Solution URL: [GitHub Repository](https://github.com/gsnezana7/multi-step-form>)
+- Live Site URL: [Live Demo Website](https://<твое-приложение>.vercel.app)
 
 ## My process
 
