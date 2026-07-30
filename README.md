@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [GitHub Repository](https://github.com/gsnezana7/multi-step-form>)
+- Solution URL: [GitHub Repository](https://github.com/gsnezana7/multi-step-form)
 - Live Site URL: [Live Demo Website](https://<твое-приложение>.vercel.app)
 
 ## My process
