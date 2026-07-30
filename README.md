@@ -31,12 +31,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./screenshot.png)
 
 ### Links
 
 - Solution URL: [GitHub Repository](https://github.com/gsnezana7/multi-step-form)
-- Live Site URL: [Live Demo Website](https://<твое-приложение>.vercel.app)
+- Live Site URL: [Live Demo Website](https://multi-step-form-gsnezana7.netlify.app)
 
 ## My process
 
