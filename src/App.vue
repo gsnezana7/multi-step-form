@@ -215,7 +215,8 @@ onMounted(() => {
     <!-- Глобальный футер: убрали лишний атрибут role -->
     <footer class="attribution">
       Challenge by <a href="https://frontendmentor.io" target="_blank" rel="noopener noreferrer">Frontend Mentor</a>.
-      Coded by <a href="https://github.com/gsnezana7" target="_blank" rel="noopener noreferrer">Snezana</a>.
+      Coded by <a href="https://github.com/gsnezana7?tab=repositories" target="_blank"
+        rel="noopener noreferrer">Snezana</a>.
     </footer>
 
   </div>
