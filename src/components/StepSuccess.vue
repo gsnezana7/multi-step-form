@@ -59,7 +59,7 @@ onMounted(() => {
 }
 
 /* Десктопные стили */
-@media (min-width: 992px) {
+@media (min-width: 62em) {
   .step-success {
     padding: 40px 20px;
   }

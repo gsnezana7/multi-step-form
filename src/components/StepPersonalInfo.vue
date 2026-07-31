@@ -162,7 +162,7 @@ const handleNameInput = (event) => {
   border-color: var(--strawberry-red);
 }
 
-м
+
 
 /* Стилизуем обертку плагина под наш дизайн */
 .form-field__tel-input {
@@ -182,7 +182,7 @@ const handleNameInput = (event) => {
 }
 
 /* Внутренний инпут плагина делаем похожим на наши остальные поля */
-:deep(.vti__input) {
+::v-deep(.vti__input) {
   padding: 12px 16px !important;
   font-family: inherit !important;
   font-size: 15px !important;
@@ -190,7 +190,7 @@ const handleNameInput = (event) => {
   color: var(--marine-blue) !important;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 62em) {
   .step-body__title {
     font-size: 32px;
     margin-bottom: 8px;

@@ -215,7 +215,7 @@ const toggleBilling = () => {
 }
 
 /* Десктопные стили для Шага 2 */
-@media (min-width: 992px) {
+@media (min-width: 62em) {
   .step-body__title {
     font-size: 32px;
     margin-bottom: 8px;
