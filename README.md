@@ -106,5 +106,5 @@ I collaborated with an AI programming assistant acting as a Senior Frontend Deve
 
 ## Author
 
-- Frontend Mentor - [@gsnezana7](https://frontendmentor.io)
+- Frontend Mentor - [@gsnezana7](https://www.frontendmentor.io/profile/gsnezana7)
 - GitHub - [gsnezana7](https://github.com/gsnezana7?tab=repositories)
