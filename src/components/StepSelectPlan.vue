@@ -57,6 +57,11 @@ const toggleBilling = () => {
           <span v-if="billingPeriod === 'yearly'" class="plan-card__bonus">2 months free</span>
         </div>
       </label>
+
+
+
+
+
     </fieldset>
 
     <!-- Переключатель Monthly / Yearly (Оставляем вашу отличную кнопку-свитч) -->
@@ -79,103 +84,139 @@ const toggleBilling = () => {
 
 
 <style scoped>
+/* ==========================================================================
+   1. БАЗОВЫЕ ТЕКСТОВЫЕ СТИЛИ ШАГА (Общие для всех шагов)
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .step-body__title {
-  font-size: 24px;
-  font-weight: 700;
   color: var(--marine-blue);
-  margin-bottom: 12px;
+  font-size: 1.5rem;
+  /* 24px на мобильных */
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  /* 8px */
 }
 
 .step-body__description {
-  font-size: 16px;
   color: var(--cool-gray);
+  font-size: 1rem;
+  /* 16px */
   line-height: 1.5;
-  margin-bottom: 22px;
+  margin-bottom: 1.5rem;
+  /* 24px */
 }
 
-/* Сетка для карточек (Мобильная версия — вертикальный стек) */
+
+/* ==========================================================================
+   2. МОБИЛЬНЫЕ СТИЛИ (По умолчанию — вертикальный список)
+   ========================================================================== */
+
+/* Группа планов через CSS Grid */
 .plans-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  /* Добавляем обнуление браузерных стилей */
   border: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
+  /* 24px отступ снизу до переключателя */
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Одна колонка на мобильных */
+  gap: 0.75rem;
+  /* 12px между карточками */
 }
 
 /* Базовая карточка тарифа */
 .plan-card {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 16px;
+  gap: 1rem;
+  /* 16px */
+  padding: 1rem;
+  /* 16px */
   border: 1px solid var(--light-gray);
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 0.5rem;
+  /* 8px */
   background-color: var(--white);
+  cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
-
 
 .plan-card:hover {
   border-color: var(--purplish-blue);
 }
 
-.plan-card:has(input:focus-visible) {
-  border-color: var(--purplish-blue);
-  box-shadow: 0 0 0 2px var(--magnolia), 0 0 0 4px var(--purplish-blue);
-}
-
-
-
-/* Выбранная карточка тарифа */
+/* Связка с вашим JS: класс :class="{ 'plan-card--selected': ... }" */
 .plan-card--selected {
   border-color: var(--purplish-blue);
-  background-color: var(--magnolia);
+  background-color: var(--alabaster);
+}
+
+.plan-card__icon {
+  width: 2.5rem;
+  /* 40px */
+  height: 2.5rem;
+  flex-shrink: 0;
 }
 
 .plan-card__info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
 .plan-card__name {
-  font-size: 16px;
-  font-weight: 500;
   color: var(--marine-blue);
+  font-weight: 500;
+  font-size: 1rem;
+  /* 16px */
+  margin-bottom: 0.25rem;
+  /* 4px */
 }
 
 .plan-card__price {
-  font-size: 14px;
   color: var(--cool-gray);
+  font-size: 0.875rem;
+  /* 14px */
 }
 
-/* Текст о бесплатных месяцах */
+/* Бонусный текст при годовой оплате */
 .plan-card__bonus {
-  font-size: 12px;
   color: var(--marine-blue);
+  font-size: 0.75rem;
+  /* 12px */
+  margin-top: 0.25rem;
+  /* 4px */
 }
 
-
-
-/* Переключатель периодов оплаты */
+/* --- ПЕРЕКЛЮЧАТЕЛЬ ПЕРИОДА (Блок подложки) --- */
 .billing-toggle {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  background-color: var(--magnolia);
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 24px;
+  gap: 1.5rem;
+  /* 24px */
+  background-color: var(--alabaster);
+  padding: 0.875rem;
+  /* 14px */
+  border-radius: 0.5rem;
+  /* 8px */
 }
 
 .billing-toggle__label {
-  font-size: 14px;
-  font-weight: 500;
   color: var(--cool-gray);
+  font-size: 0.875rem;
+  /* 14px */
+  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -184,66 +225,90 @@ const toggleBilling = () => {
   font-weight: 700;
 }
 
-/* Кнопка-переключатель */
+/* Кнопка-переключатель (role="switch") */
 .billing-toggle__switch {
   position: relative;
-  width: 38px;
-  height: 20px;
+  width: 2.375rem;
+  /* 38px */
+  height: 1.25rem;
+  /* 20px */
   background-color: var(--marine-blue);
   border: none;
-  border-radius: 10px;
+  border-radius: 0.625rem;
+  /* 10px */
   cursor: pointer;
-  padding: 4px;
+  padding: 0.25rem;
+  /* 4px внутренний отступ для кружка */
 }
 
-/* Кружок внутри переключателя по умолчанию (Monthly) */
+/* Бегунок внутри переключателя */
 .billing-toggle__circle {
   position: absolute;
-  top: 3px;
-  left: 4px;
-  width: 14px;
-  height: 14px;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 0.75rem;
+  /* 12px */
+  height: 0.75rem;
   background-color: var(--white);
   border-radius: 50%;
   transition: transform 0.2s ease;
-  /* Плавность анимации */
+  /* Плавное скольжение бегунка */
 }
 
-/* Смещаем кружок вправо, когда у СВИТЧА (кнопки) появляется класс --yearly */
 .billing-toggle__switch--yearly .billing-toggle__circle {
-  transform: translateX(16px);
+  /* Сдвигаем кружок вправо. Расчет: ширина кнопки 38px - кружок 12px - отступы 8px = 18px сдвига */
+  transform: translateX(1.125rem);
+  /* 18px */
 }
 
-/* Десктопные стили для Шага 2 */
-@media (min-width: 62em) {
+
+/* ==========================================================================
+   3. ДЕСКТОПНЫЕ СТИЛИ (Экраны от 992px / 62rem)
+   ========================================================================== */
+
+@media (min-width: 62rem) {
   .step-body__title {
-    font-size: 32px;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    /* 32px на десктопе */
+    margin-bottom: 0.625rem;
+    /* 10px */
   }
 
   .step-body__description {
-    margin-bottom: 35px;
+    margin-bottom: 2.5rem;
+    /* 40px свободного пространства до карточек */
   }
 
-  /* На десктопе карточки выстраиваются в ряд */
+  /* Перестраиваем сетку карточек в 3 равные колонки */
   .plans-group {
-    flex-direction: row;
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.125rem;
+    /* 18px между карточками на десктопе */
+    margin-bottom: 2rem;
+    /* 32px */
   }
 
-  /* Карточки становятся вертикальными прямоугольниками */
+  /* Карточка переключается на вертикальную структуру (как на десктопном макете) */
   .plan-card {
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
-    flex-basis: 0;
-    height: 160px;
-    padding: 20px 16px;
+    /* Иконка сверху, текст снизу */
+    height: 10rem;
+    /* 160px — фиксированная высота карточки */
+    padding: 1.25rem;
+    /* 20px */
+    gap: 0;
+    /* Сбрасываем флекс-гэп, так как работает space-between */
   }
 
   .plan-card__info {
     margin-top: auto;
-    /* Прижимает тексты к низу карточки */
+    /* Прижимает блок с текстом к низу карточки */
+  }
+
+  .plan-card__name {
+    margin-bottom: 0.375rem;
+    /* 6px */
   }
 }
 </style>

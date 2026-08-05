@@ -1,6 +1,6 @@
 <script setup>
 import { VueTelInput } from 'vue-tel-input'
-import 'vue-tel-input/vue-tel-input.css' // Импортируем стили плагина
+import 'vue-tel-input/vue-tel-input.css'
 
 const name = defineModel('name')
 const email = defineModel('email')
@@ -13,26 +13,23 @@ defineProps({
   }
 })
 
-// Объект с настройками для красивого внешнего вида
-const telOptions = {
-  placeholder: 'e.g. +1 234 567 890',
-  mode: 'international', // Формат номера всегда с +кодом страны
-  dropdownOptions: {
-    showDialCodeInList: true, // Показывать код страны (+375, +7) рядом с флагом в списке
-    showFlags: true
-  }
+const mode = 'international'
+
+const dropdownOptions = {
+  showDialCodeInList: true,
+  showFlags: true
 }
 
-// Функция для очистки имени от цифр и спецсимволов (безопасно для компилятора)
+const inputOptions = {
+  id: 'user-phone',
+  placeholder: 'e.g. +1 234 567 890',
+  'aria-describedby': 'phone-error'
+}
+
 const handleNameInput = (event) => {
   name.value = event.target.value.replace(/[0-9~`!@#$%^&*()_+=\[\]{}|\\:;\"'<>,.?\/]/g, '')
 }
-
-
 </script>
-
-
-
 
 <template>
   <section class="step-body">
@@ -40,102 +37,83 @@ const handleNameInput = (event) => {
     <p class="step-body__description">Please provide your name, email address, and phone number.</p>
 
     <div class="form-group">
-
-      <!-- 1. Поле: Имя (ОСТАВЛЯЕМ) -->
       <div class="form-field">
         <div class="form-field__header">
           <label class="form-field__label" for="user-name">Name</label>
-          <span v-if="errors?.name" class="form-field__error-msg">{{ errors.name }}</span>
+          <span v-if="errors?.name" id="name-error" class="form-field__error-msg">
+            {{ errors.name }}
+          </span>
         </div>
         <input v-model="name" @input="handleNameInput" class="form-field__input"
           :class="{ 'form-field__input--error': errors?.name }" id="user-name" type="text"
-          placeholder="e.g. Stephen King" />
-
+          placeholder="e.g. Stephen King" :aria-invalid="!!errors?.name" aria-describedby="name-error" />
       </div>
 
-      <!-- 2. Поле: Email (ОСТАВЛЯЕМ) -->
       <div class="form-field">
         <div class="form-field__header">
           <label class="form-field__label" for="user-email">Email Address</label>
-          <span v-if="errors?.email" class="form-field__error-msg">{{ errors.email }}</span>
+          <span v-if="errors?.email" id="email-error" class="form-field__error-msg">
+            {{ errors.email }}
+          </span>
         </div>
         <input v-model="email" class="form-field__input" :class="{ 'form-field__input--error': errors?.email }"
-          id="user-email" type="email" placeholder="e.g. stephenking@lorem.com" />
+          id="user-email" type="email" placeholder="e.g. stephenking@lorem.com" :aria-invalid="!!errors?.email"
+          aria-describedby="email-error" />
       </div>
 
-      <!-- 3. Поле: Телефон (ВНУТРИ ДОЛЖЕН ОСТАТЬСЯ ТОЛЬКО VUE-TEL-INPUT) -->
       <div class="form-field">
         <div class="form-field__header">
           <label class="form-field__label" for="user-phone">Phone Number</label>
-          <span v-if="errors?.phone" class="form-field__error-msg">{{ errors.phone }}</span>
+          <span v-if="errors?.phone" id="phone-error" class="form-field__error-msg">
+            {{ errors.phone }}
+          </span>
         </div>
-
-        <!-- Оставляем ТОЛЬКО этот умный компонент -->
-        <vue-tel-input v-model="phone" :options="telOptions" class="form-field__tel-input"
-          :class="{ 'form-field__tel-input--error': errors?.phone }" id="user-phone" />
-
+        <vue-tel-input v-model="phone" :mode="mode" :dropdownOptions="dropdownOptions" :inputOptions="inputOptions"
+          class="form-field__tel-input" :class="{ 'form-field__tel-input--error': errors?.phone }" />
       </div>
-
     </div>
   </section>
 </template>
 
-
-
 <style scoped>
+/* ==========================================================================
+   1. ТЕКСТОВЫЕ СТИЛИ (Мобильные по умолчанию в REM)
+   ========================================================================== */
+
 .step-body__title {
-  font-size: 24px;
+  font-size: 1.5rem;
+  /* 24px */
   font-weight: 700;
   color: var(--marine-blue);
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+  /* 12px */
 }
 
 .step-body__description {
-  font-size: 16px;
+  font-size: 1rem;
+  /* 16px */
   color: var(--cool-gray);
   line-height: 1.5;
 }
 
+/* ==========================================================================
+   2. СТИЛИЗАЦИЯ ФОРМЫ И ПОЛЕЙ (REM/EM)
+   ========================================================================== */
+
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 22px;
+  gap: 1rem;
+  /* 16px */
+  margin-top: 1.375rem;
+  /* 22px */
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-
-.form-field__label {
-  font-size: 12px;
-  color: var(--marine-blue);
-  font-weight: 500;
-}
-
-.form-field__input {
-  width: 100%;
-  padding: 12px 16px;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--marine-blue);
-  border: 1px solid var(--light-gray);
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.form-field__input::placeholder {
-  color: var(--cool-gray);
-  font-weight: 500;
-  opacity: 0.8;
-}
-
-.form-field__input:focus {
-  border-color: var(--purplish-blue);
+  gap: 0.25rem;
+  /* 4px */
 }
 
 /* Выравниваем Label и текст ошибки по краям */
@@ -145,55 +123,106 @@ const handleNameInput = (event) => {
   align-items: center;
 }
 
-/* Красный текст ошибки из ТЗ */
+.form-field__label {
+  font-size: 0.75rem;
+  /* 12px */
+  color: var(--marine-blue);
+  font-weight: 500;
+}
+
+/* Красный текст ошибки */
 .form-field__error-msg {
-  font-size: 12px;
+  font-size: 0.75rem;
+  /* 12px */
   color: var(--strawberry-red);
   font-weight: 700;
 }
 
-/* Красная рамка для инпута в случае ошибки */
-.form-field__input--error {
-  border-color: var(--strawberry-red);
+/* Базовый инпут (Имя, Email) */
+.form-field__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  /* 12px 16px */
+  font-family: inherit;
+  font-size: 0.9375rem;
+  /* 15px */
+  font-weight: 500;
+  color: var(--marine-blue);
+  border: 1px solid var(--light-gray);
+  border-radius: 0.25rem;
+  /* 4px */
+  outline: none;
+  box-sizing: border-box;
+  /* Защита от раздувания ширины */
+  transition: border-color 0.2s ease;
 }
 
-/* Изменяем цвет фокуса, если поле с ошибкой, чтобы оно оставалось красным */
+.form-field__input::placeholder {
+  color: var(--cool-gray);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Состояния фокуса и ошибок */
+.form-field__input:focus {
+  border-color: var(--purplish-blue);
+}
+
+.form-field__input--error,
 .form-field__input--error:focus {
   border-color: var(--strawberry-red);
 }
 
+/* ==========================================================================
+   3. СТИЛИЗАЦИЯ ПЛАГИНА VUE-TEL-INPUT 
+   ========================================================================== */
 
-
-/* Стилизуем обертку плагина под наш дизайн */
 .form-field__tel-input {
   border: 1px solid var(--light-gray) !important;
-  border-radius: 4px !important;
+  border-radius: 0.25rem !important;
+  /* 4px */
   box-shadow: none !important;
+  box-sizing: border-box;
 }
 
-/* Эффект фокуса */
 .form-field__tel-input:focus-within {
   border-color: var(--purplish-blue) !important;
 }
 
-/* Ошибка */
 .form-field__tel-input--error {
   border-color: var(--strawberry-red) !important;
 }
 
-/* Внутренний инпут плагина делаем похожим на наши остальные поля */
-::v-deep(.vti__input) {
-  padding: 12px 16px !important;
+
+:deep(.vti__input) {
+  padding: 0.75rem 1rem !important;
+  /* 12px 16px */
   font-family: inherit !important;
-  font-size: 15px !important;
+  font-size: 0.9375rem !important;
+  /* 15px */
   font-weight: 500 !important;
   color: var(--marine-blue) !important;
 }
 
-@media (min-width: 62em) {
+/* ==========================================================================
+   4. ДЕСКТОПНЫЕ СТИЛИ (Согласованы с брейкпоинтом главного Grid-контейнера)
+   ========================================================================== */
+
+@media (min-width: 62rem) {
+
+  /* Изменили 48em на 62rem (992px) для синхронности с общим Grid */
   .step-body__title {
-    font-size: 32px;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    /* 32px */
+    margin-bottom: 0.5rem;
+    /* 8px */
+  }
+
+  .form-group {
+    max-width: 28.125rem;
+    /* 450px */
+    gap: 1.5rem;
+    /* На десктопе увеличиваем расстояние между полями до 24px */
   }
 }
 </style>

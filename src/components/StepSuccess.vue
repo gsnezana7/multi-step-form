@@ -28,51 +28,80 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Центрируем весь контент внутри карточки */
+/* ==========================================================================
+   1. МОБИЛЬНЫЕ СТИЛИ (По умолчанию)
+   ========================================================================== */
+
+/* Центрируем весь контент внутри карточки успеха */
 .step-success {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 32px 0;
+  padding: 2rem 0;
+  /* 32px */
   margin: auto 0;
-  /* Центрирование по вертикали на десктопе */
+  /* Центрирует блок по вертикали, если вокруг есть место */
 }
 
 .step-success__icon {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 24px;
+  width: 3.5rem;
+  /* 56px */
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+  /* 24px */
 }
 
+/* Заголовок успеха */
 .step-success__title {
-  font-size: 24px;
+  font-size: 1.5rem;
+  /* 24px */
   font-weight: 700;
   color: var(--marine-blue);
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+  /* 12px */
+  outline: none;
+  /* Убираем дефолтную рамку аутлайна при JS-фокусе */
 }
 
+/* Описание */
 .step-success__description {
-  font-size: 16px;
+  font-size: 1rem;
+  /* 16px */
   color: var(--cool-gray);
   line-height: 1.6;
 }
 
-/* Десктопные стили */
-@media (min-width: 62em) {
+/* ==========================================================================
+   2. ДЕСКТОПНЫЕ СТИЛИ (Экраны от 992px / 62rem)
+   ========================================================================== */
+
+@media (min-width: 62rem) {
+
+  /* Синхронизировали с глобальной сеткой .wizard */
   .step-success {
-    padding: 40px 20px;
+    padding: 2.5rem 1.25rem;
+    /* 40px 20px */
+    /* Выравниваем ширину контента под общую линию полей ввода предыдущих шагов */
+    max-width: 28.125rem;
+    /* 450px */
+    margin: auto;
+    /* Идеально центрирует блок и по вертикали, и по горизонтали */
   }
 
   .step-success__icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 32px;
+    width: 5rem;
+    /* 80px */
+    height: 5rem;
+    margin-bottom: 2rem;
+    /* 32px */
   }
 
   .step-success__title {
-    font-size: 32px;
-    margin-bottom: 16px;
+    font-size: 2rem;
+    /* 32px */
+    margin-bottom: 1rem;
+    /* 16px */
   }
 }
 </style>
