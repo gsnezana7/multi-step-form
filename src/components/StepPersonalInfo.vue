@@ -201,8 +201,8 @@ const handleNameInput = (event) => {
   border-color: var(--strawberry-red);
 }
 
-/* 4. Глубокий селектор для внутреннего инпута */
-.form-group .form-field__tel-input ::v-deep(.vti__input) {
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:deep(.vti__input) {
   padding: 0.75rem 1rem;
   font-family: inherit;
   font-size: 0.9375rem;
