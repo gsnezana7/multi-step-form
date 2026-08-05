@@ -525,6 +525,8 @@ onMounted(() => {
 
 /* Фикс для снижения интенсивности движения */
 @media (prefers-reduced-motion: reduce) {
+
+  /* stylelint-disable declaration-no-important */
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -541,5 +543,7 @@ onMounted(() => {
   .fade-leave-active {
     transition: none !important;
   }
+
+  /* stylelint-enable declaration-no-important */
 }
 </style>
