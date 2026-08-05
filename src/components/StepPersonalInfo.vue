@@ -17,14 +17,20 @@ const mode = 'international'
 
 const dropdownOptions = {
   showDialCodeInList: true,
-  showFlags: true
+  showFlags: true,
+  // ИСПРАВЛЕНИЕ ОШИБКИ 1: заставляем плагин рендерить нативную кнопку вместо div
+  disabledButton: false
 }
+
 
 const inputOptions = {
   id: 'user-phone',
   placeholder: 'e.g. +1 234 567 890',
-  'aria-describedby': 'phone-error'
+  'aria-describedby': 'phone-error',
+  // ИСПРАВЛЕНИЕ ОШИБКИ 2: явно задаем тип для инпута
+  type: 'tel'
 }
+
 
 const handleNameInput = (event) => {
   name.value = event.target.value.replace(/[0-9~`!@#$%^&*()_+=\[\]{}|\\:;\"'<>,.?\/]/g, '')
@@ -176,33 +182,34 @@ const handleNameInput = (event) => {
 /* ==========================================================================
    3. СТИЛИЗАЦИЯ ПЛАГИНА VUE-TEL-INPUT 
    ========================================================================== */
-
-.form-field__tel-input {
-  border: 1px solid var(--light-gray) !important;
-  border-radius: 0.25rem !important;
-  /* 4px */
-  box-shadow: none !important;
+/* 1. Повышаем вес за счет цепочки родитель -> потомок */
+.form-group .form-field__tel-input {
+  border: 1px solid var(--light-gray);
+  border-radius: 0.25rem;
+  box-shadow: none;
   box-sizing: border-box;
 }
 
-.form-field__tel-input:focus-within {
-  border-color: var(--purplish-blue) !important;
+/* 2. Повышаем вес для состояния фокуса */
+.form-group .form-field__tel-input:focus-within {
+  border-color: var(--purplish-blue);
 }
 
-.form-field__tel-input--error {
-  border-color: var(--strawberry-red) !important;
+/* 3. Повышаем вес для состояния ошибки. 
+   Соединяем два класса вместе (.класс.класс), это дает огромный вес селектору */
+.form-group .form-field__tel-input.form-field__tel-input--error {
+  border-color: var(--strawberry-red);
 }
 
-
-:deep(.vti__input) {
-  padding: 0.75rem 1rem !important;
-  /* 12px 16px */
-  font-family: inherit !important;
-  font-size: 0.9375rem !important;
-  /* 15px */
-  font-weight: 500 !important;
-  color: var(--marine-blue) !important;
+/* 4. Глубокий селектор для внутреннего инпута */
+.form-group .form-field__tel-input ::v-deep(.vti__input) {
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--marine-blue);
 }
+
 
 /* ==========================================================================
    4. ДЕСКТОПНЫЕ СТИЛИ (Согласованы с брейкпоинтом главного Grid-контейнера)
@@ -223,6 +230,12 @@ const handleNameInput = (event) => {
     /* 450px */
     gap: 1.5rem;
     /* На десктопе увеличиваем расстояние между полями до 24px */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-field__input {
+    transition: none;
   }
 }
 </style>
