@@ -4,7 +4,7 @@
 
 ## 🚀 Демонстрация проекта
 
-- **Живой сайт (Netlify):** https://netlify.app
+- **Живой сайт (Netlify):**[ https://netlify.app](https://multi-step-form-gsnezana7.netlify.app)
 
 ## 🛠️ Стек технологий и архитектура
 
